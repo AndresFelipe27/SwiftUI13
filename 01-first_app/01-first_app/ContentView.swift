@@ -24,6 +24,7 @@ struct ContentView: View {
             //.rotationEffect(.degrees(15),anchor: UnitPoint(x: 0, y: 0) )
             .rotation3DEffect(.degrees(50), axis: (1,0,0))
             .shadow(color: .gray, radius: 1, x: 0, y: 2)
+        
     }
 }
 
