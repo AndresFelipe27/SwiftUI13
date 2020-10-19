@@ -12,11 +12,26 @@ struct ContentView: View {
     var body: some View {
         VStack {
             HeaderView()
-            PlansView()
             
+            HStack(spacing: 8) {
+                PricingView(title: "Básico", price: "$9.99", subtitle: "Un curso incluido", textColor: .white, backgroundColor: .green)
+                ZStack{
+                    PricingView(title: "Carrera", price: "$29.99", subtitle: "Toda una carrera", textColor: .black, backgroundColor: Color(red: 230/255, green: 230/255, blue: 230/255))
+                    
+                    message(title: "El mejor para empezar")
+                }
+            }.padding(.horizontal)
+            
+            ZStack{
+                PricingView(icon: "lightbulb", title: "Definitivo", price: "$99.99", subtitle: "Todos los cursos online", textColor: .white, backgroundColor: Color(red: 50/255, green: 50/255, blue: 50/255))
+                .padding(.horizontal)
+                
+                message(title: "Conviertete en un máster del universo")
+            }
+            
+                
         }
-        
-
+    
     }
 }
 
@@ -40,46 +55,57 @@ struct HeaderView: View {
     }
 }
 
-struct PlansView: View {
+
+struct PricingView: View {
+    
+    var icon: String?
+    var title: String
+    var price: String
+    var subtitle: String
+    var textColor: Color
+    var backgroundColor: Color
+    
     var body: some View {
-        HStack {
-            VStack{
-                Text("Plan Básico")
-                    .font(.system(.title, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                
-                Text("$9.99")
-                    .font(.system(size: 35, weight: .heavy, design: .rounded))
-                    .foregroundColor(.white)
-                
-                Text("Un curso incluido")
-                    .font(.headline)
-                    .foregroundColor(.white)
-            }
-            .padding(30)
-            .background(Color.green)
-            .cornerRadius(10)
+        VStack{
             
-            VStack{
-                Text("Plan Carrera")
-                    .font(.system(.title, design: .rounded))
-                    .fontWeight(.bold)
+            icon.map({
+                Image(systemName: $0)
+                    .font(.largeTitle)
                     .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                
-                Text("$29.99")
-                    .font(.system(size: 35, weight: .heavy, design: .rounded))
-                    .foregroundColor(.white)
-                
-                Text("Incluye 1 carrera")
-                    .font(.headline)
-                    .foregroundColor(.white)
-            }
-            .padding(30)
-            .background(Color.orange)
-            .cornerRadius(10)
+            })
+
+            Text(title)
+                .font(.system(.title, design: .rounded))
+                .fontWeight(.bold)
+                .foregroundColor(textColor)
+            
+            Text(price)
+                .font(.system(size: 35, weight: .heavy, design: .rounded))
+                .foregroundColor(textColor)
+            
+            Text(subtitle)
+                .font(.headline)
+                .foregroundColor(textColor)
+                .multilineTextAlignment(.center)
         }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 115)
+        .padding(30)
+        .background(backgroundColor)
+        .cornerRadius(10)
+    }
+}
+
+struct message: View {
+    
+    var title: String
+    
+    var body: some View {
+        Text(title)
+            .font(.system(.caption, design: .rounded))
+            .foregroundColor(.white)
+            .fontWeight(.black)
+            .padding(8)
+            .background(Color(red: 240/255, green: 180/255, blue: 50/255))
+            .offset(x:0, y: -89)
     }
 }
